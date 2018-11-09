@@ -26,7 +26,7 @@ class TspSolver:
         sum_ = 0
         for i in range(len(path)-1):
             sum_ += self._adjacent[path[i]][path[i+1]]
-        sum_ += self._adjacent[path[-1]][0]
+        sum_ += self._adjacent[path[-1]][path[0]]
 
         return sum_
 
