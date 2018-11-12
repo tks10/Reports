@@ -84,13 +84,6 @@ class TspSolver:
 
         return lower
 
-    @staticmethod
-    def argmin2(src):
-        assert len(src.shape) == 2
-        row, col = np.unravel_index(np.argmin(src), src.shape)
-
-        return row, col
-
 
 def main():
     adjacent_report = [
