@@ -106,13 +106,13 @@ def main():
 
     cost, path = solver.exhaustive_search()
     print("************* Result(Exhaustive) *************")
-    print("[Path]", " > ".join(map(lambda p: str(p + 1), path + [path[0]])))
+    print("[Path]", " > ".join(map(lambda p: str(p+1), path+[path[0]])))
     print("[Cost]", cost)
     print("**********************************************\n\n")
 
     cost, path = solver.branch_and_bound_search(start=2)
     print("*********** Result(Branch and Bound) ***********")
-    print("[Path]", " > ".join(map(lambda p: str(p+1), path + [path[0]])))
+    print("[Path]", " > ".join(map(lambda p: str(p+1), path+[path[0]])))
     print("[Cost]", cost)
     print("************************************************\n\n")
 
