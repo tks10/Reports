@@ -71,7 +71,6 @@ class TspSolver:
             current_path.remove(current_path[-1])
             return self.branch_and_bound_search(start, adjacent_unuse, current_path)
 
-
     @staticmethod
     def calc_lower_bound(src):
         row_mins = src.min(axis=1)
