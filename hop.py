@@ -22,6 +22,13 @@ class HopFieldNetwork:
                         self._weight_adjacent[i][j] += (2 * alpha_i - 1) * (2 * alpha_j - 1)
 
     def recall(self, initial_state):
+        if self._size != len(initial_state):
+            raise ValueError
+
+        for i in range(self._size):
+            self._nodes[i] = initial_state[i]
+
+    def update(self):
         pass
 
     def init_weights(self):
