@@ -33,31 +33,34 @@ class HopFieldNetwork:
         for i in range(self._size):
             self._nodes[i] = initial_state[i]
 
+        self.show_nodes()
+
+        while self.update_nodes(show_progress):
+            pass
+
     def update_nodes(self, show_progress=False):
         is_changed = False
 
-        updated_nodes = [0 for _ in range(self._size)]
         for i in range(self._size):
             value_sum = 0
             for j in range(self._size):
                 value_sum += self._weight_adjacent[j][i] * self._nodes[j]
 
             if value_sum > 0:
-                updated_nodes[i] = 1
+                updated_nodes = 1
 
             elif value_sum < 0:
-                updated_nodes[i] = 0
+                updated_nodes = 0
 
             else:
-                updated_nodes[i] = self._nodes[i]
+                updated_nodes = self._nodes[i]
 
-        for i in range(self._size):
-            if self._nodes[i] != updated_nodes[i]:
-                self._nodes[i] = updated_nodes[i]
+            if self._nodes[i] != updated_nodes:
+                self._nodes[i] = updated_nodes
                 is_changed = True
 
-        if show_progress:
-            self.show_nodes()
+                if show_progress:
+                    self.show_nodes()
 
         return is_changed
 
@@ -77,8 +80,8 @@ class HopFieldNetwork:
         fig, ax = plt.subplots()
         ax.pcolor(data, cmap=plt.cm.Blues)
 
-        ax.set_xticks(np.arange(data.shape[0]) + 0.5, minor=False)
-        ax.set_yticks(np.arange(data.shape[1]) + 0.5, minor=False)
+        ax.set_xticks(np.arange(data.shape[0]), minor=False)
+        ax.set_yticks(np.arange(data.shape[1]), minor=False)
 
         ax.invert_yaxis()
         ax.xaxis.tick_top()
@@ -87,21 +90,22 @@ class HopFieldNetwork:
 
 
 def main():
+    hfn = HopFieldNetwork()
+
     state_to_memory = [
         [0, 1, 0,
          1, 1, 1,
          0, 1, 0]
     ]
 
-    state_initial = [
+    initial_state = [
         1, 0, 1,
         1, 0, 0,
         0, 1, 0
     ]
 
-    hfn = HopFieldNetwork()
     hfn.memorize(state_to_memory)
-    hfn.recall(state_initial)
+    hfn.recall(initial_state)
 
 
 if __name__ == "__main__":
