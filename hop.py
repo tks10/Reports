@@ -26,15 +26,40 @@ class HopFieldNetwork:
                     if i != j:
                         self._weight_adjacent[i][j] += (2 * alpha_i - 1) * (2 * alpha_j - 1)
 
-    def recall(self, initial_state):
+    def recall(self, initial_state, show_progress=True):
         if self._size != len(initial_state):
             raise ValueError
 
         for i in range(self._size):
             self._nodes[i] = initial_state[i]
 
-    def update(self):
-        pass
+    def update_nodes(self, show_progress=False):
+        is_changed = False
+
+        updated_nodes = [0 for _ in range(self._size)]
+        for i in range(self._size):
+            value_sum = 0
+            for j in range(self._size):
+                value_sum += self._weight_adjacent[j][i] * self._nodes[j]
+
+            if value_sum > 0:
+                updated_nodes[i] = 1
+
+            elif value_sum < 0:
+                updated_nodes[i] = 0
+
+            else:
+                updated_nodes[i] = self._nodes[i]
+
+        for i in range(self._size):
+            if self._nodes[i] != updated_nodes[i]:
+                self._nodes[i] = updated_nodes[i]
+                is_changed = True
+
+        if show_progress:
+            self.show_nodes()
+
+        return is_changed
 
     def init_weights(self):
         for i in range(self._size):
@@ -62,11 +87,21 @@ class HopFieldNetwork:
 
 
 def main():
-    state = [[1, 0, 1, 0, 1, 0, 1, 0, 1]]
+    state_to_memory = [
+        [0, 1, 0,
+         1, 1, 1,
+         0, 1, 0]
+    ]
+
+    state_initial = [
+        1, 0, 1,
+        1, 0, 0,
+        0, 1, 0
+    ]
 
     hfn = HopFieldNetwork()
-    hfn.recall(state[0])
-    hfn.show_nodes()
+    hfn.memorize(state_to_memory)
+    hfn.recall(state_initial)
 
 
 if __name__ == "__main__":
