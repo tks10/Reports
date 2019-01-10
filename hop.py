@@ -74,6 +74,12 @@ class HopFieldNetwork:
         size = int(math.sqrt(self._size))
         HopFieldNetwork.show_matrix(nodes_np.reshape((size, size)))
 
+    def print_weights(self):
+        for weight_row in self._weight_adjacent:
+            for weight in  weight_row:
+                print(str(weight).rjust(4), end="")
+            print()
+
     @staticmethod
     def show_matrix(data):
         data = np.asarray(data)
@@ -105,6 +111,7 @@ def main():
     ]
 
     hfn.memorize(state_to_memory)
+    hfn.print_weights()
     hfn.recall(initial_state)
 
 
